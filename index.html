@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,43 @@
     <!--Style Bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
+    <div class="container vh-100 d-flex flex-column justify-content-center align-items-center text-center">
+        <h1>0</h1>
+        <p>Inserisci tutti i numeri che ricordi (l'ordine non è importante)</p>
+        <div class="d-flex justify-content-center gap-2 mb-3">
+            <div>
+                <label for="num1" class="visually-hidden">Numero</label>
+                <input type="text" id="num1" class="form-control number-input">
+            </div>
+            <div>
+                <label for="num2" class="visually-hidden">Numero</label>
+                <input type="text" id="num2" class="form-control number-input">
+            </div>
+            <div>
+                <label for="num3" class="visually-hidden">Numero</label>
+                <input type="text" id="num3" class="form-control number-input">
+            </div>
+            <div>
+                <label for="num4" class="visually-hidden">Numero</label>
+                <input type="text" id="num4" class="form-control number-input">
+            </div>
+            <div>
+                <label for="num5" class="visually-hidden">Numero</label>
+                <input type="text" id="num5" class="form-control number-input">
+            </div>
+        </div>
+        <div class="mt-3">
+            <button type="button" class="btn btn-primary">Conferma</button>
+        </div>
+        <p>Risulato</p>
+    </div>
 
     <!--Script-->
     <script src="./js/script.js"></script>
 </body>
+
 </html>
