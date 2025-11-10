@@ -1,45 +1,100 @@
-// prendo tutti gli elementi
-
-const tempoElem = document.querySelector("h1");
-const istruzione = document.querySelector("p");
-const confermaBtn = document.getElementById("confermaBtn");
-const startBtm = document.getElementById("startBtn");
-const risultati = document.querySelector(".risultati");
-const imput1= document.getElementById("num1");
-const imput2= document.getElementById("num2");
-const imput3= document.getElementById("num3");
-const imput4= document.getElementById("num4");
-const imput5= document.getElementById("num5");
-
-//console.log(tempoElem, istruzione, confermaBtn,startBtn, risultati, 
-// imput1, imput2, imput3, imput4, imput5);
-
-//1. Creare l'interfaccia ( anche senza css)----> fatto
-//2. Generare i 5 numeri random
-
-let countdown = 30;
-let randomNumber = [];
-
-
-
-tempoElem.innerHTML = countdown;
-
-
-function generateRandomNumber() {
-    const numeri = [];
-    for (let i = 0; i < 5; i++){
-    const newNumber = Math.floor(Math.random() * 99) + 1;
-    numeri.push(newNumber);
-    }
-    return numeri;
+// FUNZIONI
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+/**
+ *
+ * @param {*} min
+ * @param {*} max
+ * @param {*} quantity
+ * return: array
+ */
+function generateUniqueNumbers(min, max, quantity) {
+    const result = [];
+    for (let i = 0; result.length < quantity; i++) {
+        const random = getRndInteger(min, max);
+        if (!result.includes(random)) {
+            result.push(random);
+        }
+    }
+    return result;
+}
 
-//3. Stampare i 5 numeri in pagina
+// Prelevare tutti gli elementi del DOM
+const startBtn = document.getElementById("start-btn");
+const numbersElem = document.getElementById("numbers");
+const timerElem = document.getElementById("timer");
+const form = document.getElementById("numbers-form");
+const inputs = document.querySelectorAll("input");
+const resultElem = document.getElementById("result");
+
+// Dati - stato globale
+let generatedNumbers = [];
+let userNumbers = [];
+const min = 10;
+const max = 50;
+const totalNumbers = 5;
+const time = 10000;
+let timerId;
+
+// Il Gioco
+startBtn.addEventListener("click", function () {
+    form.reset();
+    form.classList.add("d-none");
+    resultElem.classList.add("d-none");
+
+    generatedNumbers = generateUniqueNumbers(min, max, totalNumbers);
+    console.log(generatedNumbers);
+
+    numbersElem.innerHTML = generatedNumbers;
+    numbersElem.classList.remove("d-none");
+    setTimeout(function () {
+        numbersElem.classList.add("d-none");
+        form.classList.remove("d-none");
+    }, time);
+});
+
+form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    userNumbers = [];
+
+    // Raccolta di numeri di utente
+    for (let i = 0; i < inputs.length; i++) {
+        const curNumber = parseInt(inputs[i].value);
+        if (!userNumbers.includes(curNumber)) {
+            userNumbers.push(curNumber);
+        }
+    }
+    console.log(userNumbers);
+
+    // Controllo di numeri corretti
+    const correctNumbers = [];
+    for (let i = 0; i < userNumbers.length; i++) {
+        const curNumber = userNumbers[i];
+        if (generatedNumbers.includes(curNumber)) {
+            correctNumbers.push(curNumber);
+        }
+    }
+
+    resultElem.innerHTML = `Hai indovinato ${correctNumbers.length} numeri: ${correctNumbers}`;
+    resultElem.classList.remove("d-none");
+});
 
 
-//4. Far scomparire i 5 numeri dopo 30 secondi e mostrare gli input
-//5. Al click sul bottone leggere i numeri inseriti dall'utente
-//6. Controllare quanti dei umeri sono stati indovinati
-//7. Stampare il risultato del punteggio
+//Creare l'interfaccia ( anche senza css)----> fatto
+// Al click sul bottone
+// 1. Generare 5 numeri random comprensi tra 10 e 100, senza ripetizione
+// 2. Stampare i numeri in pagina
+// 3. Fare partire il timer di 30 secondi (stampare il coundown in pagina)
+// 4. Quando il timer scade 
+//.       - nascondendere tutti i numeri
+//.       - mostrare gli imput
+// Quandol'utente clicca sul bottone controlla
+//        - raccongliere tutti i numeri dell'utente
+//.       - controllare quale sono i numeri corretti
+//.       - stampare il risultato
+//
+
+
 
